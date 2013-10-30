@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+<head>
+<link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+    <style>
+    body {
+        width: 600px;
+        margin: 0 auto;
+        color: #444;
+        font-family: "Nunito","Arial Rounded MT", Arial, Helvetica, sans-serif;
+    }
+    textarea {
+        border: none;
+        color: #09e;
+        font-size: 30px;
+        font-family: "Nunito","Arial Rounded MT", Arial, Helvetica, sans-serif;
+        outline: 1px dashed #ccc;
+        padding: 12px 0;
+        text-align: center;
+        width: 100%;
+        resize: none;
+    }
+    #q {
+        letter-spacing: 3px;
+        font-size: 20px;
+        color: #777;
+        height: 40px;
+        line-height: 20px;
+        margin: 20px 0;
+    }
+    </style>
+</head>
+<body id="m">
+    <textarea autofocus="true" placeholder="start typing"></textarea>
+</body>
+<script>c=console;l=65;onkeyup=function(e){t="e.target.value='',l=65";f=e.which;l==f?(l>89?(c.log("Congratulations"),eval(t)):l++):(eval(t),c.log("Wrong letter"))};</script>
+</html>
