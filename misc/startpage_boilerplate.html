@@ -1,0 +1,530 @@
+<!--
+created by Norman Vo
+twitter.com/@mrnovo6213
+
+Licensed under GPL v3: http://choosealicense.com/licenses/gpl-v3/
+-->
+<!DOCTYPE html>
+<html lang="en-au">
+<head>
+<meta charset="UTF-8" />
+<title>novo's homepage</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<style>
+* { padding: 0; margin: 0; font-family: Arial; }
+.box { min-height: 80px; width: 200px; margin: 10px 10px; font-size: 11px; float:left; }
+.code { min-height: 60px; min-width: 150px; margin: 12px 8px; font-size: 11px; float:left; background-color: none; border: 1px dotted grey; }
+.code h3 { margin: 8px 14px; }
+.code p { margin: 14px; }
+.important { list-style-type: none; background-color: #eeeeee; outline:1px dashed grey; }
+#general { list-style-type: none; background-color: #ee7788; outline:1px dashed grey; }
+#gallery { list-style-type: none; background-color: #eeeeee; outline:1px dotted grey; }
+.bold { list-style-type: none; background-color: #f1f1f1; outline:2px dashed #ff1119; font-weight: bold; }
+.box li { margin: 4px 8px 6px 14px; }
+h2 { font-size:1.6em; font-weight: bold; color: #112; clear: both; margin: 6px 6px 4px 6px; padding: 4px 0 4px 12px; float:none; letter-spacing: 8px; }
+.box h3 { margin: 8px; }
+.box h4 { margin: 4px 4px 6px 4px; display: block; background-color: white; padding: 4px 0px 2px 8px; }
+.heavy { font-size:1.2em; font-weight:bold; }
+a { text-decoration: none; }
+.content { min-width: 720px; max-width: 1180px; margin: 18px auto; }
+.clear { display: block; clear: both; height: 12px; }
+
+#help_us { display: inline-block; width: 106px; height: 83px; background: url("help_us_UP.gif") no-repeat 0 0; }
+#help_us:hover {/*background-position: 0 -23px; //for single GIF/JPG*/ background: url("help_us_OVER.gif") no-repeat 0 0; }
+#help_us span { display: none; }
+#privacy { display: inline-block; width: 84px; height: 10px; background: url("txt_privacy.gif") no-repeat 0 0; }
+#privacy:hover { background-position: 0 -10px; }
+#privacy span { display: none; }
+.embiggen { font-size:1.2em; font-weight: bold; }
+#hidden { visibility:hidden; }
+#visToggle, #flashTitle, #expand, #plusOneTitle { cursor: pointer; color: red; }
+
+
+
+#novo-weather {
+    outline: 1px dashed #ccc;
+    display: block;
+    float: left;
+    margin: 8px 0 8px 10px;
+    width: 200px;
+}
+#myWeather {
+    background-color: #eee;
+    clear: both;
+    display: block;
+    margin: 5px;
+    font-size: 11px;
+}
+.weath-div,
+#currentTemp,
+#currentText {
+    display: block;
+    float: left;
+    width: 120px;
+}
+.weath-div {
+    margin-left: 10px;
+}
+</style>
+
+<script type="text/javascript">
+var TWEEN_DURATION = 300;
+var SLIDE_ID = { id_name: [
+"#quoteMarks", "#bannersSection", "#otherJS",
+"#flashMind", "#plusOne", "#moreJS", "#robotlegs",
+"#awardlook", "#diveInto", "#moreWebDev", "#nicaFB",
+"#boiler", "#TNT", "#gameSalad", "#proc", "#reads",
+"#codeUni", "#pbk", "#Tradie", "#Norski", "#alchemy",
+"#mobileEULA", "#mciyc", "#moreJSTools", "#loose",
+"#lotus", "#wildfire", "#plus7", "#afl", "#localStorageDemo",
+"#oldpub", "#multidoco", "#olddrydock", "#newpub"
+] };
+
+var i, JSON_length;
+
+$(document).ready( function() {
+  $('.collapse').slideUp(300);
+//  $('.collapse').parent('div').css('border','5px solid red');
+    $('h2.collapsible').css('cursor','pointer');
+
+	$('h2.collapsible').mouseover(function() {
+		$(this).css('background-color','#aaa');
+	});
+	$('h2.collapsible').mouseout(function() {
+		$(this).css('background-color','#fff');
+	});
+
+	$('h2.collapsible').click(function() {
+		$('.collapse').slideToggle(300);
+	});
+
+  JSON_length = SLIDE_ID.id_name.length;
+
+  for (i = 0; i < JSON_length; i++) {
+  	addSliding(SLIDE_ID.id_name[i]);
+  }
+
+
+/* SPECIAL CASES */
+  var visDiv = $('#visSample');
+  var visTitle = $('#visToggle');
+  visDiv.slideUp();
+  visTitle.click(function() { visDiv.slideToggle(TWEEN_DURATION); });
+
+  var flashDiv = $('#flashTute');
+  var flashTitle = $('#flashTitle');
+  flashDiv.slideUp();
+  flashTitle.click(function() { flashDiv.slideToggle(TWEEN_DURATION); });
+
+
+  $('#expand').click(function() { $('div').slideDown(TWEEN_DURATION); });
+
+}); //END doc.ready
+
+
+function addSliding(id) {
+//console.log(id);
+  $(id).slideUp();
+  $(id).prev('h4').click(function() {
+    $(id).slideToggle(200);
+  });
+
+  $(id).prev('h4').css('cursor', 'pointer').css('color', 'red');
+}
+
+
+/*
+ * YQL rest query with more flexibility - returns JSON
+ * select item from weather.forecast where location="ASXX0112" and u='c'
+ * set JSON values into vars, inject vars into ids
+ */
+
+var myWeatherJSON,
+	today = {
+		temp:'0',
+		text:'',
+		date:'',
+		high:'0',
+		low:'0'
+	},
+	tmr = {
+		text:'',
+		date:'',
+		high:'0',
+		low:'0'
+	},
+	weatherImg;
+$.ajax({
+  url: "http://query.yahooapis.com/v1/public/yql?q=%0Aselect%20item%20from%20weather.forecast%20where%20location%3D%22ASXX0112%22%20and%20u%3D'c'&format=json",
+  success: function(e) {
+	myWeatherJSON = e;
+	today.temp = myWeatherJSON.query.results.channel.item.condition.temp + '&deg; C';
+	today.text = myWeatherJSON.query.results.channel.item.condition.text;
+	today.date = myWeatherJSON.query.results.channel.item.forecast[0].date;
+	today.high = myWeatherJSON.query.results.channel.item.forecast[0].high;
+	today.low = myWeatherJSON.query.results.channel.item.forecast[0].low;
+
+	tmr.text = myWeatherJSON.query.results.channel.item.forecast[1].text;
+	tmr.date = myWeatherJSON.query.results.channel.item.forecast[1].date;
+	tmr.high = myWeatherJSON.query.results.channel.item.forecast[1].high;
+	tmr.low = myWeatherJSON.query.results.channel.item.forecast[1].low;
+
+	weatherImg = myWeatherJSON.query.results.channel.item.description.split('<br />')[0].slice(1);
+
+	$('#weatherImg').html(weatherImg);
+	$('#currentTemp').html(today.temp);
+	$('#currentText').html(today.text);
+
+	$('#todayText').html(today.date);
+	$('#todayHigh').html(today.high);
+	$('#todayLow').html(today.low);
+
+	$('#tmrText').html(tmr.date);
+	$('#tmrHigh').html(tmr.high);
+	$('#tmrLow').html(tmr.low);
+  }
+});
+
+
+</script>
+</head>
+
+
+<body>
+
+<div class="content">
+
+
+<h2>current</h2>
+
+<ul class="box bold">
+
+<h4>Dive into HTML5</h4>
+<div id="diveInto">
+	<li><a href="http://diveintohtml5.org/canvas.html">canvas</a></li>
+	<li><a href="http://diveintohtml5.org/storage.html">local storage</a></li>
+	<li><a href="http://diveintohtml5.org/offline.html">offline</a></li>
+	<li><a href="http://diveintohtml5.org/geolocation.html">geolocation</a></li>
+	<li><a href="http://www.diveintojavascript.com/tutorials/web-storage-tutorial-creating-an-address-book-application">webstorage address book example</a></li>
+</div>
+
+<br />
+
+
+
+<h4>to read</h4>
+<div id="reads">
+<li>Opera's mobile dev doc: <a href="http://dev.opera.com/articles/view/making-small-devices-look-great/">making it look great</a></li>
+<li><a href="http://dev.opera.com/articles/view/designing-and-developing-mobile-web-site/">designing & developing</a></li>
+<li><a href="http://developer.apple.com/library/safari/#documentation/appleapplications/reference/safariwebcontent/UsingtheViewport/UsingtheViewport.html#//apple_ref/doc/uid/TP40006509-SW1">Mobile Safari meta tags</a></li>
+</div>
+
+</ul>
+
+
+<ul class="box important"><h3>Useful links</h3>
+<h4>Boilerplates</h4>
+<div id="boiler">
+	<li><a href="http://html5boilerplate.com/">html5</a></li>
+	<li><a href="http://htmlemailboilerplate.com/">email</a></li>
+</div>
+<li><a class="embiggen" href="http://www.noupe.com/tools/css3-and-html5-toolbox-starter.html">HTML5/CSS3 generators</a></li>
+<li><a href="http://css-tricks.com/examples/ButtonMaker/#">CSS button generator</a></li>
+
+
+<h4>Facebook</h4>
+<li>FB like (view source)</li>
+<!-- FB SMALL LIKE BUTTON
+<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.google.com&amp;layout=standard&amp;show_faces=false&amp;width=150&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:54px; height:26px; border:0px solid black;" allowTransparency="true"></iframe>
+END FB LIKE -->
+
+<h4>Twitter</h4>
+<li><a href="https://dev.twitter.com/docs/follow-button">follow button</a> | view source</li>
+<!--
+IFRAME follow:
+<iframe allowtransparency="true" frameborder="0" scrolling="no"
+  src="http://platform.twitter.com/widgets/follow_button.html?screen_name=novo6123"
+  style="width:300px; height:20px;"></iframe>
+-->
+<li><a href="https://dev.twitter.com/docs/tweet-button">tweet button</a> | view source</li>
+<!--
+IFRAME tweet
+<iframe allowtransparency="true" frameborder="0" scrolling="no"
+        src="https://platform.twitter.com/widgets/tweet_button.html"
+        style="width:130px; height:20px;"></iframe>
+-->
+
+</ul>
+
+<ul class="box important" style="float:left;">
+<h3>Mobile Web page dev</h3>
+<li><a href="http://www.google.com/support/webmasters/bin/answer.py?answer=72462">googles doc summary</a></li>
+<li><a href="http://validator.w3.org/mobile/">w3 validator</a></li>
+<li><a href="http://ready.mobi/launch.jsp?locale=en_EN">mobi checker</a></li>
+
+</ul>
+
+
+
+<!-- YQL weather -->
+<div id="novo-weather">
+	<div id="myWeather">
+
+		<div style="float: left; display: block; height:52px;">
+			<div id="weatherImg" style="display: block; float: left;"></div>
+
+			<div class="weath-div">
+				<div id="currentTemp" style="font-size: 28px; font-weight: bold;"></div>
+				<div id="currentText" style="font-size: 12px; font-weight: bold;"></div>
+			</div>
+
+		</div>
+
+		<div style="float: left; display: block; height: 52px; font-size: 20px; margin: 4px 0 0 8px; ">
+			<div style="width: 100%; height: 24px; border-top: 1px dashed grey;">
+				<div id="todayText" style="font-size: 14px; line-height: 20px; float: left;"></div>
+				<div id="todayHigh" style="font-weight: bold; color: red; margin-left: 16px; float: left;"></div>
+				<div id="todayLow" style="font-weight: bold; color: blue; margin-left: 16px; float: left;"></div>
+			</div>
+			<div style="width: 100%; height: 24px; border-top: 1px dashed grey;">
+				<div id="tmrText" style="font-size: 14px; float: left;"></div>
+				<div id="tmrHigh" style="font-weight: bold; color: red; margin-left: 16px; float: left;"></div>
+				<div id="tmrLow" style="font-weight: bold; color: blue; margin-left: 16px; float: left;"></div>
+			</div>
+		</div>
+
+		<div style="display:block; clear:both;"></div>
+
+	</div>
+</div>
+
+
+
+
+<h2>misc:</h2>
+
+<ul class="box important">
+<li><a href="http://www.gotoandlearn.com/index.php?as=3">goto and learn</a></li>
+<li><a href="http://greenethumb.com/article/27/public-private-protected-internal-access-modifiers-in-as3">class access modifiers</a></li>
+<li><a href="http://www.mistywindow.com/reference/html-characters.htm">html chars</a> | <a href="http://www.integracoustics.com/MUG/MUG/bbs/characters.htm">more special chars</a></li>
+<li>font-awesome: <a href="http://fortawesome.github.com/Font-Awesome/">symbols</a> | <a href="https://github.com/FortAwesome/Font-Awesome/blob/master/sass/font-awesome.scss">char codes</a></li>
+<li><a href=""></a></li>
+</ul>
+
+
+
+<ul class="box important scroller">
+	<li><a id="expand">expand all</a></li>
+
+	<li><a href=""></a></li>
+	<li><a href=""></a></li>
+	<li><a href=""></a></li>
+</ul>
+
+
+<ul class="box important">
+    <li><a href="http://au.news.yahoo.com">aunews</a></li>
+    <li>
+        <a href="https://mail.google.com/mail/u/0/?shva=1#inbox">gmail</a>
+    </li>
+</ul>
+
+
+
+
+
+
+<h2 class="collapsible">CSS:</h2>
+
+<!-- COLLAPSE -->
+<div class="collapse">
+
+<ul class="code"><h3>IE hacks</h3>
+<p>
+color: red; /* all browsers, of course */<br />
+color : green\9; /* IE8 and below */<br />
+*color : yellow; /* IE7 and below */<br />
+_color : orange; /* IE6 */
+</p>
+</ul>
+
+<ul class="code"><h3>Mozilla hacks</h3>
+	<p>
+@-moz-document url-prefix() {<br />
+. . .h1 { color: red; }<br />
+}
+	</p>
+</ul>
+
+<ul class="code"><h3>CSS shadow</h3>
+<p>
+.shadow {<br />
+. . ./* x-offset, y-offset, radius, color*/<br />
+. . .-moz-box-shadow: 0px 0px 4px #000;<br />
+. . .-webkit-box-shadow: 0px 0px 4px #000;<br />
+. . .box-shadow: 0px 0px 4px #000;<br />
+. . ./* For IE 8 */<br />
+. . .-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";<br />
+. . ./* For IE 5.5 - 7 */<br />
+. . .filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');<br />
+}<br />
+</p><br />
+</ul>
+
+
+<ul class="code"><h3>CSS sprite</h3>
+<p>
+#btnSubmit {<br />
+. . .background:url(btn_submit.png) no-repeat 0 0px;<br />
+. . .width: 132px;<br />
+. . .height: 43px;<br />
+. . .cursor: pointer;<br />
+}<br />
+#btnSubmit:hover {<br />
+. . .position:relative;<br />
+. . .background:url(images/btn_submit.png) no-repeat 0 -43px;<br />
+}<br />
+<br />
+note: only use on '&lt;a&gt;' tags
+</p>
+</ul>
+
+
+
+
+
+<div style="text-shadow: #CCC 0px -1px 0px, #C9C9C9 0px -2px 0px, #BBB 0px -3px 0px, #B9B9B9 0px -4px 0px, #AAA 0px -5px 0px, rgba(0, 0, 0, 0.0898438) 0px -6px 1px, rgba(0, 0, 0, 0.0898438) 0px 0px 5px, rgba(0, 0, 0, 0.292969) 0px -1px 0px, rgba(0, 0, 0, 0.199219) 0px -3px 0px, rgba(0, 0, 0, 0.246094) 0px -5px 10px, rgba(0, 0, 0, 0.199219) 0px -10px 10px, rgba(0, 0, 0, 0.148438) 0px -20px 20px; font-size: 80px;">3d css shadow</div>
+
+
+<ul class="code"><h3>CSS arrows</h3>
+	<!-- 'greater than' arrow, no text -->
+	<div style="outline: 2px dotted black;">
+		<div style="border-radius: 30px; border: 1px solid #BD9999; width: 160px; margin: 20px auto; box-shadow: inset 1px 1px 30px #000; background-color: #BD0001;">
+			<div style="width: 60px; height: 120px; position: relative;  padding: 20px 50px;">
+				<div style="width: 0; height: 0; border: 60px solid transparent;  border-left: 60px solid white; top: 20px; position: absolute; "></div>
+				<div style="width: 0; height: 0; border: 48px solid transparent;  border-left: 48px solid #BD0001; top: 32px; position: absolute;"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- triangular arrow with tail -->
+	<div>
+		<div style="width: 120px; display: block; height: 60px; background-color: wheat; border: 30px solid saddleBrown; float: left; border-left: none; border-right: none; border-color: white;"></div>
+		<div style="border: 60px solid black; width: 0; height: 0; border-color: transparent; border-left: 60px solid wheat;  float: left;"></div>
+	</div>
+
+	<!-- speech bubble -->
+	<div>
+		<div style="width: 180px; height: 200px; border: 1px solid #777; margin: 20px 0; border-radius: 30px; background-color: silver;  float: left;"></div>
+		<div style="border: 20px solid black; height: 0; width: 0; border-color: transparent; border-left: 30px solid silver; float: left; margin: 40px 0 0 -2px;"></div>
+	</div>
+</ul>
+
+
+
+
+<div style="margin: 40px; position: relative; float: left;">
+	<style>
+	.iso-cube,
+	.another-cube {
+		width: 50px;
+		height: 50px;
+		background: #05C005;
+		display: block;
+		position: relative;
+		-webkit-transform: skew(0deg) rotateZ(45deg);
+	}
+	.iso-cube:before,
+	.another-cube:before {
+		width: 50px;
+		height: 30px;
+		background: red;
+		display: block;
+		clear: both;
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 15px;
+		-webkit-transform: skew(45deg) rotateZ(0deg);
+	}
+	.iso-cube:after,
+	.another-cube:after {
+		width: 30px;
+		height: 50px;
+		background: blue;
+		display: block;
+		clear: both;
+		content: "";
+		position: absolute;
+		bottom: -15px;
+		left: 100%;
+		-webkit-transform: skewY(45deg) rotateZ(0deg);
+	}
+	.another-cube {
+		margin-top: 200%;
+		-webkit-transform: none;
+		background: #EE0505;
+	}
+	.another-cube:before {
+		background: #680E0E;
+		width: 50px;
+		height: 10px;
+		left: 5px;
+	}
+	.another-cube:after {
+		background: #AD0318;
+		width: 10px;
+		height: 50px;
+		bottom: -5px;
+	}
+	</style>
+
+	<div class="iso-cube">
+	</div>
+	<div class="another-cube">
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<div style="clear:both; display:block; height:60px;"></div>
+
+</div>
+<!-- COLLAPSE -->
+
+
+
+
+<h2 class="collapsible">your snippet:</h2>
+
+<!-- COLLAPSE -->
+<div class="collapse">
+
+<ul class="code"><h3>your snippet here</h3>
+<p>
+lorem (ipsum) {<br />
+dolor:<br />
+. . .sit = "amit";<br />
+}
+</p>
+</ul>
+
+</div>
+<!-- END COLLAPSE -->
+
+
+
+<div style="clear:both; display:block; height:10px;"></div>
+
+</div> <!-- /content -->
+
+
+</body>
+</html>
