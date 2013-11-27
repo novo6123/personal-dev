@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>JavaScript twiki</title>
+
+<!--     <link href="css/impress-demo.css" rel="stylesheet" /> -->
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+<style>
+*, div, ul, li {
+	font-family: Helvetica;
+}
+.box { padding:50px; outline: 1px solid black; width: 800px; display: block; background: white; }
+h1, h2 { font-weight: bold; color: #111; border-bottom: 2px dotted #ccc; }
+ul { margin-top: 20px; list-style-type: disc; list-style-position: inside; }
+li { font-size: 40px; line-height: 60px; }
+</style>
+
+</head>
+<body>
+<!--
+<canvas id="bgCanvas" style="width: 1920px; height: 1080px; "></canvas>
+-->
+<div id="impress" class="impress-not-supported">
+
+    <div class="fallback-message">
+        <p>Get <b>Chrome</b>.</p>
+    </div>
+
+
+    <div id="one" class="step" data-x="0" data-y="-1000">
+    	<div class="box">
+			<div style="font-weight: bold; font-size: 90px; height: 300px; padding-top: 200px; text-align: center; text-shadow: #CCC 0px -1px 0px, #C9C9C9 0px -2px 0px, #BBB 0px -3px 0px, #B9B9B9 0px -4px 0px, #AAA 0px -5px 0px, rgba(0, 0, 0, 0.0898438) 0px -6px 1px, rgba(0, 0, 0, 0.0898438) 0px 0px 5px, rgba(0, 0, 0, 0.292969) 0px -1px 0px, rgba(0, 0, 0, 0.199219) 0px -3px 0px, rgba(0, 0, 0, 0.246094) 0px -5px 10px, rgba(0, 0, 0, 0.199219) 0px -10px 10px, rgba(0, 0, 0, 0.148438) 0px -20px 20px; ">Impress JS library demo
+			</div>
+    		<a style="font-size: 20px;" target="_blank" href="http://bartaz.github.io/impress.js/#/bored">source repo on Git</a>
+    	</div>
+
+    </div>
+
+
+    <div id="two" class="step" data-x="0" data-y="0" data-scale="2">
+		<ul class="box" style="width: 800px;">
+			<li>hello</li>
+			<li>world</li>
+		</ul>
+    </div>
+
+
+    <div id="three" class="step"  data-x="400" data-y="1200" data-scale="3">
+        <div class="box">
+			<h1>this is Norman</h1>
+			<ul>
+                <li>hello</li>
+                <li>world</li>
+			</ul>
+        </div>
+    </div>
+
+
+    <div id="four" class="step"  data-x="-100" data-y="3700" data-rotate="90" data-scale="4">
+        <div class="box">
+			<h1>this is Norman</h1>
+			<ul>
+                <li>hello</li>
+                <li>world</li>
+			</ul>
+	    </div>
+    </div>
+
+
+    <div id="five" class="step"  data-x="1900" data-y="4100" data-rotate="90" data-scale="5">
+        <div class="box">
+			<h1>this is Norman</h1>
+			<ul>
+                <li>hello</li>
+                <li>world</li>
+			</ul>
+	    </div>
+    </div>
+
+
+    <div id="six" class="step"  data-x="-500" data-y="9000" data-rotate="90" data-scale="8">
+        <div class="box">
+			<h1>this is Norman</h1>
+			<ul>
+                <li>I wish I has something more meaningful to write about</li>
+			</ul>
+	    </div>
+    </div>
+
+
+    <div id="seven" class="step" data-x="2000" data-y="0" data-rotate="180" data-scale="1">
+        <div class="box">
+			<h1>this is Norman</h1>
+			<ul>
+                <li>hello</li>
+                <li>world</li>
+			</ul>
+	    </div>
+    </div>
+
+
+    <div id="eight" class="step" data-x="3500" data-y="1000" data-rotate="180" data-scale="3">
+        <div class="box">
+			<h1>this is Norman</h1>
+			<ul>
+                <li>Get ready...here comes a picture!</li>
+			</ul>
+	    </div>
+    </div>
+
+    <div id="halfeight" class="step" data-x="3500" data-y="1000" data-rotate="360" data-z="-15000" data-scale="4">
+        <div class="box">
+        	<img src="http://d2fhka9tf2vaj2.cloudfront.net/tuts/391_qtEventFlow/flasheventflow.png" />
+        </div>
+    </div>
+
+
+
+    <div id="nine" class="step" data-x="5500" data-y="2800" data-rotate="180" data-scale="5">
+        <div class="box">
+			<h1>this is Norman</h1>
+			<ul>
+                <li>wasn't that exciting?!?</li>
+			</ul>
+	    </div>
+    </div>
+
+
+    <div id="its-in-3d" class="step" data-x="3200" data-y="-1500" data-z="-1000" data-rotate-x="-140" data-rotate-y="10" data-scale="4">
+        <div class="box">
+        	<h1>mission accomplished</h1>
+    	    <ul>
+	    	    <li>this library: impress.js</li>
+	    	    <li>any Q's?</li>
+	    	</ul>
+
+	    	<img src="http://www.likecool.com/Gear/Pic/GifCoffee%20350237013/GifCoffee.gif" />
+		</div>
+    </div>
+
+    <!--
+
+        So to make a summary of all the possible attributes used to position presentation steps, we have:
+
+        * 'data-x', 'data-y', 'data-z'- they define the position of **the center** of step element on
+            the canvas in pixels; their default value is 0;
+        * 'data-rotate-x', 'data-rotate-y', 'data-rotate-z', 'data-rotate'- they define the rotation of
+            the element around given axis in degrees; their default value is 0; 'data-rotate' and 'data-rotate-z'
+            are exactly the same;
+        * 'data-scale'- defines the scale of step element; default value is 1
+
+    -->
+    <div id="overview" class="step" data-x="4000" data-y="5500" data-scale="20">
+    </div>
+
+</div>
+
+
+<div class="hint">
+    <p>Use a spacebar or arrow keys to navigate</p>
+</div>
+
+<script>
+if ("ontouchstart" in document.documentElement) {
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+
+<script src="./impress.js"></script>
+<script>impress();</script>
+
+
+</body>
+</html>
+
+
