@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-au">
+<head>
+<meta charset="UTF-8">
+<title>...novo6123</title>
+<!--
+2.   	Using HTML and CSS only - no images or JavaScript, create a 100px by 100px box with a blue background onto the page centred horizontally and vertically regardless of screen resolution, additionally there should be some white text in this box which is horizontally and vertically centred.
+-->
+<style>
+* { padding: 0; margin: 0; font-family: Helvetica; }
+html,
+body {
+	height: 100%;
+}
+.outer {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+p {
+	background: #09F;
+	line-height: 100px;
+	height: 100px;
+	width: 100px;
+	text-align: center;
+	position: relative;
+	left: -50px;
+	top: -50px;
+}
+</style>
+<script>
+/*
+1.   	Create a script that outputs the numbers from 1 to 100. But for multiples of three print "Fizz" instead of the number and for the multiples of five print "Buzz". For numbers which are multiples of both three and five print "FizzBuzz".
+*/
+(function() {
+	for (var i=1; i<=100; i+=1) {
+		if (i%15===0) {
+			console.log("FizzBuzz");
+		}
+		else {
+			if (i%3===0) {
+				console.log('Fizz');
+			}
+			else if (i%5===0) {
+				console.log('Buzz');
+			}
+			else {
+				console.log(i);
+			}
+		}
+	}
+})();
+</script>
+</head>
+<body>
+	<div class="outer">
+		<p>hello world!</p>
+	</div>
+</body>
+
+</html>
