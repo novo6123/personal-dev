@@ -63,21 +63,14 @@
      
 
 
-/*
-    // why the f#$%# don't these params work?!?!
-    // you lied to me, ChartJS !!!
-    Chart.defaults.global = {
+    window.myLine = new Chart(ctx1).Line(lineChartData, {
         animation: true,
-        animationSteps: 60,
-        animationEasing: "easeOutSine",
+        animationSteps: 30,
+        animationEasing: "easeOutElastic",
         showScale: true,
         scaleLineColor: "rgba(0,0,0,.1)",
         scaleLineWidth: 1,
 
-        responsive: true
-    }
-*/
-    window.myLine = new Chart(ctx1).Line(lineChartData, {
         bezierCurve : false,
         responsive: true
     });
