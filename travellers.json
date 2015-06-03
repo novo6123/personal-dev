@@ -1,0 +1,35 @@
+{
+    "travellers": [{
+        "N": {
+            "locations": [
+                {
+                    "location": "Syd, NSW, AU",
+                    "dates": [
+                        {
+                            "year": 1984,
+                            "month": 04
+                        },
+                        {
+                            "year": 2015,
+                            "month": 06
+                        }
+                    ]
+                },
+                {
+                    "location": "Bris, QLD, AU",
+                    "dates": [
+                        {
+                            "year": 2006,
+                            "month": 01
+                        },
+                        {
+                            "year": 2015,
+                            "month": 06
+                        }
+                    ]
+                }
+            ]
+        }
+
+    }]
+}
