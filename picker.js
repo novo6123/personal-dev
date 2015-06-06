@@ -1,8 +1,24 @@
 /*
- * @desc still not doing what I want!
+ * @desc close to solution, slightly off
  */
-var temp = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
-    temp2 = [1,2,3,4,5,6,7,8,9],
+var temp = (function() {
+        var i = 0,
+            sub = [];
+
+            for (; i<40; i+=1) {
+                sub.push(i);
+            }
+            return sub;
+    }()),
+    temp2 =  (function() {
+        var i = 0,
+            sub = [];
+
+            for (; i<100; i+=1) {
+                sub.push(i);
+            }
+            return sub;
+    }()),
 
     picker = function (inputArray, numOfPoints) {
         var i = 1,
