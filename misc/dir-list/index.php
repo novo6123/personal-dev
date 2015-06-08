@@ -42,7 +42,7 @@
 
         while (false !== ($entry = readdir($handle))) {
 
-            if ($entry != "." && $entry != "..") {
+            if ($entry != ".DS_Store" && $entry != "index.php" && $entry != "." && $entry != "..") {
 
                 //echo '<li class="' . $li_class . '"><a class="' . $a_class . '" href="' . $entry . '">' . $entry . '</a></li>';
 
