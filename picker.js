@@ -1,16 +1,8 @@
 /*
  * @desc close to solution, slightly off
  */
-var temp = (function() {
-        var i = 0,
-            sub = [];
-
-            for (; i<40; i+=1) {
-                sub.push(i);
-            }
-            return sub;
-    }()),
-    temp2 =  (function() {
+var array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+    arrayn = (function() {
         var i = 0,
             sub = [];
 
@@ -18,46 +10,44 @@ var temp = (function() {
                 sub.push(i);
             }
             return sub;
-    }()),
+    }());
 
-    picker = function (inputArray, numOfPoints) {
-        var i = 1,
-            tempArray = [],
-            subArray = [],
-            dataLength = 0,
-            point = 0,
-            pointsToDistribute = 0;
+    picker = {
+        "pick": function(inputArray, num) {
+            "use strict";
 
-        // first item
-        subArray.push(inputArray[0]);
+            var len = inputArray.length,
+                subArray = [],
+                i = 1;
 
-        tempArray = inputArray.slice(1,this.length - 1);
-        dataLength = tempArray.length;
+            // console.log("array length: ", len);
 
-        console.log("tempArray", tempArray);
+            for (; i <= num; i+=1) {
+                var iter = i - 1,
+                    subdiv = Math.floor(len / (num - 1)),
+                    ptIndex = 0;
 
-        // numOfPoints - firstItem - lastItem
-        pointsToDistribute = numOfPoints - 2;
-        console.log("pointsToDistribute", pointsToDistribute);
+                if (subdiv < 0) {
+                    subdiv = 0;
+                }
 
-        var interval = Math.floor(dataLength / pointsToDistribute);
+                ptIndex = subdiv * iter;
 
-        console.log("interval", interval);
+                // console.log("iter", iter);
+                // console.log("subdiv", subdiv);
+                // console.log("inputArray[subdiv * iter]", inputArray[ptIndex]);
 
+                if (ptIndex >= len) {
+                    // console.log("ptIndex >= array length, ptIndex = ", ptIndex);
+                    ptIndex = len - 1;
+                }
 
-        for (; i <= pointsToDistribute; i+=1) {
-
-            point = tempArray[i*interval-1];
-            console.log("point",point);
-
-            subArray.push(point);
+                subArray.push(inputArray[ptIndex]);
+            }
+            return subArray;
         }
-
-        // last item
-        subArray.push(inputArray[inputArray.length-1]);
-
-        return subArray;
     };
 
 
-picker(temp, 5);
+// picker.pick(arrayn, 3); // [0, 50, 99]; // correct
+// picker.pick(arrayn, 4); // [0, 33, 66, 99]; // correct
