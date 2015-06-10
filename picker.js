@@ -55,6 +55,7 @@ var picker = {
 
 
                 // add if-condition: first point offset??
+                // if num > inputArray.length / 2, there should be an offset?
                 ptIndex = subdiv * iter;
 
 
