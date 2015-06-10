@@ -1,5 +1,6 @@
 /*
- * @desc close to solution, slightly off
+ * @auth twitter.com/mrnovo6123 (norman.vo@gmail.com)
+ * @desc for any passed in array, picked an evenly distributed set of points
  */
 var array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
     arrayn = (function() {
@@ -13,14 +14,16 @@ var array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,2
     }());
 
     picker = {
-        "pick": function(inputArray, num) {
+        "pick": function(inputArray, num, debug) {
             "use strict";
 
             var len = inputArray.length,
                 subArray = [],
                 i = 1;
 
-            // console.log("array length: ", len);
+            if (!!debug) {
+                console.log("array length: ", len);
+            }
 
             for (; i <= num; i+=1) {
                 var iter = i - 1,
@@ -28,17 +31,25 @@ var array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,2
                     ptIndex = 0;
 
                 if (subdiv < 0) {
+                    console.log("subdiv < 0");
                     subdiv = 0;
                 }
 
                 ptIndex = subdiv * iter;
 
-                // console.log("iter", iter);
-                // console.log("subdiv", subdiv);
-                // console.log("inputArray[subdiv * iter]", inputArray[ptIndex]);
+
+                if (!!debug) {
+                    console.log("iter", iter);
+                    console.log("subdiv", subdiv);
+                    console.log("inputArray[subdiv * iter]", inputArray[ptIndex]);
+                }
 
                 if (ptIndex >= len) {
-                    // console.log("ptIndex >= array length, ptIndex = ", ptIndex);
+
+                    if (!!debug) {
+                        console.log("ptIndex >= array length, ptIndex = ", ptIndex);
+                    }
+
                     ptIndex = len - 1;
                 }
 
