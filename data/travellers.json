@@ -27,6 +27,32 @@
                             "month": 06
                         }
                     ]
+                },
+                {
+                    "location": "Saigon, VN",
+                    "dates": [
+                        {
+                            "year": 2007,
+                            "month": 11
+                        },
+                        {
+                            "year": 2007,
+                            "month": 11
+                        }
+                    ]
+                },
+                {
+                    "location": "blank, NSW, AU",
+                    "dates": [
+                        {
+                            "year": 2015,
+                            "month": 06
+                        },
+                        {
+                            "year": 2015,
+                            "month": 06
+                        }
+                    ]
                 }
             ]
         }
