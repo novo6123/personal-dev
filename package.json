@@ -1,0 +1,24 @@
+{
+  "name": "novo",
+  "version": "0.0.1",
+  "description": "first npm",
+  "main": "picker.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novo6123/personal-dev.git"
+  },
+  "keywords": [
+    "novo",
+    "test",
+    "npm"
+  ],
+  "author": "novo6123",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/novo6123/personal-dev/issues"
+  },
+  "homepage": "https://github.com/novo6123/personal-dev#readme"
+}
