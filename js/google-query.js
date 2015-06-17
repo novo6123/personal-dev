@@ -2,6 +2,8 @@
 // returned object needs to be parsed...
 // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 
+// also https://developers.google.com/custom-search/json-api/v1/using_rest
+
 var gq = {
     "getRequest": function (queryString) {
         "use strict";
