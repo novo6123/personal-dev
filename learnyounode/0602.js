@@ -38,7 +38,7 @@
 // You must use asynchronous I/O.
 
 
-var listing = require('./0601.js');
+var listing = require('./06-program.js');
 var dir = process.argv[2];
 var filter = process.argv[3];
 
